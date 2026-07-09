@@ -1,3 +1,2 @@
-# aviation_data_streamlit
-# AI 스마트 항공 관제탑
+AI 스마트 항공 관제탑
 고등학생 대상 실시간 항공 데이터 시각화 대시보드
