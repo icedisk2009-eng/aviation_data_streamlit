@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import time
 
-st.set_page_config(page_title="AI 스마트 항공 관제탑", layout="wide")
+st.set_page_config(page_title="스마트 항공 관제탑", layout="wide")
 
 TOKEN_URL = "https://auth.opensky-network.org/auth/realms/opensky-network/protocol/openid-connect/token"
 STATES_URL = "https://opensky-network.org/api/states/all"
@@ -54,7 +54,7 @@ def fetch_flight_data(token):
             time.sleep(3)
 
 
-st.title("🚨 AI 스마트 항공 관제탑 (한반도 상공)")
+st.title("🚨 한반도 상공 모니터링")
 
 if st.button("🔄 수동 새로고침"):
     fetch_flight_data.clear()  # 항공 데이터 캐시만 지움 (토큰 캐시는 그대로 유지)
