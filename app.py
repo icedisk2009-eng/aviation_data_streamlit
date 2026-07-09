@@ -57,7 +57,7 @@ def fetch_flight_data(token):
 st.title("🚨 AI 스마트 항공 관제탑 (한반도 상공)")
 
 if st.button("🔄 수동 새로고침"):
-    st.cache_data.clear()
+    fetch_flight_data.clear()  # 항공 데이터 캐시만 지움 (토큰 캐시는 그대로 유지)
     st.rerun()
 
 try:
@@ -70,6 +70,17 @@ except Exception as e:
 
 with st.spinner("실시간 데이터를 불러오는 중..."):
     df = fetch_flight_data(token)
+
+# 토큰이 만료됐거나 거부당한 경우, 토큰만 새로 받아서 한 번 더 시도
+if df is None:
+    get_access_token.clear()  # 토큰 캐시만 지움
+    with st.spinner("토큰 재발급 후 재시도 중..."):
+        try:
+            token = get_access_token()
+            fetch_flight_data.clear()
+            df = fetch_flight_data(token)
+        except Exception as e:
+            st.error(f"재시도 실패: {e}")
 
 if df is not None and not df.empty:
     analysis_df = df.dropna(subset=["latitude", "longitude", "vertical_rate"]).copy()
